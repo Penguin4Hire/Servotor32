@@ -358,7 +358,7 @@ void Servotor32::process(Stream *serial){
         numCount = 0;
         break;
       case 'V':
-        serial->println("SERVOTOR32_v2.0");
+        serial->println("SERVOTOR32_v2.1");
         break;
       case 'C':
         for(int i=0; i<32; i++){
@@ -379,6 +379,9 @@ void Servotor32::process(Stream *serial){
         }
         changeServo(inServo, -1);
         break;
+      case 'l':
+	static bool statusLed = HIGH;
+	digitalWrite(STATUS_LED, statusLed ^= HIGH);
       default:
         if((inChar > 47)&&(inChar < 58)){
           if(numCount<4){
@@ -487,3 +490,4 @@ float Servotor32::multiPing(unsigned short attempts=5){
   return distances[(int)ceil((float)attempts/2.0)];
   
 }
+
